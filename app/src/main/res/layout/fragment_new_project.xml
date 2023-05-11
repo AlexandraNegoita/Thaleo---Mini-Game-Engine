@@ -7,11 +7,5 @@
     tools:context=".NewProjectFragment">
     <!-- TODO: Update blank fragment layout
     PAGINA DE NEW PROJECT -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="New Project"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:textColor="@color/white"/>
+
 </FrameLayout>

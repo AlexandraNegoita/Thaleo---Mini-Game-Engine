@@ -10,7 +10,18 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/frame_layout"/>
+        android:id="@+id/frame_layout">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:rotationX="4"
+            android:rotationY="-18"
+            android:text="Button"
+            android:onClick="gotoActivity"
+            />
+    </FrameLayout>
     <com.google.android.material.bottomappbar.BottomAppBar
         android:theme="@style/Theme.BottomNavigation"
         android:layout_width="match_parent"

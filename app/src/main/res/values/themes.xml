@@ -16,4 +16,11 @@
     <style name="AppTextAppearance.Button" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:textAllCaps">true</item>
     </style>
+  <!-- Base application theme. -->
+    <style name="Base.Theme.Test_Bun" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.Test_Bun" parent="Base.Theme.Test_Bun" />
 </resources>

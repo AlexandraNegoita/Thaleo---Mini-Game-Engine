@@ -31,7 +31,6 @@ public class NewProjectFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment NewProjectFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static NewProjectFragment newInstance(String param1, String param2) {
         NewProjectFragment fragment = new NewProjectFragment();
         Bundle args = new Bundle();

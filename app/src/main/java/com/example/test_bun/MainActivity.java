@@ -5,13 +5,17 @@ import android.app.Fragment;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.test_bun.databinding.ActivityMainBinding;
 
 public class MainActivity extends Activity {
 
     ActivityMainBinding binding;
+    private GLSurfaceView gLView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,8 @@ public class MainActivity extends Activity {
         binding.plusButton.setOnClickListener(item -> {
                 replaceFragment(new NewProjectFragment());
         });
+        // Create a GLSurfaceView instance and set it
+        // as the ContentView for this Activity.
 
     }
 
@@ -61,5 +67,11 @@ public class MainActivity extends Activity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    public void gotoActivity(View View)
+    {
+        Intent engine = new Intent(this,EngineActivity.class);
+        startActivity(engine);
     }
 }
