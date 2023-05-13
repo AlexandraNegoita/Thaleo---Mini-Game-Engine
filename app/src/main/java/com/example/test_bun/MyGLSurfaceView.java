@@ -45,6 +45,10 @@ class MyGLSurfaceView extends GLSurfaceView {
     private float previousX;
     private float previousY;
 
+    public float[] getShapeScale() {
+        return renderer.getScale();
+    }
+
     public MyGLSurfaceView(Context context) {
         super(context);
         // Create an OpenGL ES 2.0 context
@@ -69,16 +73,21 @@ class MyGLSurfaceView extends GLSurfaceView {
         setRenderer(renderer);
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
     }
-    public void rotateButton(String direction){
-        if(direction.equals("L")) {
-            renderer.setAngle(
-                    renderer.getAngle() - 2
-            );
-        } else if (direction.equals("R")) {
-            renderer.setAngle(
-                    renderer.getAngle() + 2
-            );
-        }
+
+    public void rotateButton(float value){
+//        if(value < 50.0f) {
+//            renderer.setAngle(
+//                    //renderer.getAngle() -
+//                            (50 - value) * 45f
+//            );
+//        } else if (value > 50.0f) {
+//            renderer.setAngle(
+//                    //renderer.getAngle() +
+//                            (value + 50) * 45f
+//            );
+//        }
+
+        renderer.setAngle(value);
 
         // reverse direction of rotation above the mid-line
 //        if (y > getHeight() / 2) {
@@ -93,55 +102,57 @@ class MyGLSurfaceView extends GLSurfaceView {
         requestRender();
     }
 
-    public void scaleButton(String direction){
-        float newScale[] = new float[0];
-        float fact = 0.2f;
-        switch (direction) {
-            case "LX" : {
+    //    public void rotateButton(String direction){
+//        if(direction.equals("L")) {
+//            renderer.setAngle(
+//                    renderer.getAngle() - 2
+//            );
+//        } else if (direction.equals("R")) {
+//            renderer.setAngle(
+//                    renderer.getAngle() + 2
+//            );
+//        }
+//
+//        // reverse direction of rotation above the mid-line
+////        if (y > getHeight() / 2) {
+////            dx = dx * -1 ;
+////        }
+////
+////        // reverse direction of rotation to left of the mid-line
+////        if (x < getWidth() / 2) {
+////            dy = dy * -1 ;
+////        }
+//
+//        requestRender();
+//    }
+
+    public void scaleButton(float value, String ax){
+        float newScale[] = new float[]{};
+        //String direction;
+        float fact = 0.01f;
+
+        switch (ax) {
+            case "X" : {
                 newScale = new float[]{
-                        renderer.getScale()[0] - fact,
+                        fact * value,
                         renderer.getScale()[1],
                         renderer.getScale()[2]
                 };
                 break;
             }
-            case "LY" : {
+            case "Y" : {
                 newScale = new float[]{
                         renderer.getScale()[0],
-                        renderer.getScale()[1] - fact,
+                        fact * value,
                         renderer.getScale()[2]
                 };
                 break;
             }
-            case "LZ" : {
+            case "Z" : {
                 newScale = new float[]{
                         renderer.getScale()[0],
                         renderer.getScale()[1],
-                        renderer.getScale()[2] - fact
-                };
-                break;
-            }
-            case "RX" : {
-                newScale = new float[]{
-                        renderer.getScale()[0] + fact,
-                        renderer.getScale()[1],
-                        renderer.getScale()[2]
-                };
-                break;
-            }
-            case "RY" : {
-                newScale = new float[]{
-                        renderer.getScale()[0],
-                        renderer.getScale()[1] + fact,
-                        renderer.getScale()[2]
-                };
-                break;
-            }
-            case "RZ" : {
-                newScale = new float[]{
-                        renderer.getScale()[0],
-                        renderer.getScale()[1],
-                        renderer.getScale()[2] + fact
+                        fact * value
                 };
                 break;
             }

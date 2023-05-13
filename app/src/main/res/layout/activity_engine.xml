@@ -7,58 +7,324 @@
     android:background="@color/lavender"
     tools:context=".EngineActivity">
 
+
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+
         tools:layout_editor_absoluteX="-160dp"
         tools:layout_editor_absoluteY="-181dp">
 
-        <Button
-            android:id="@+id/buttonRotateL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="gotoActivity"
-            android:rotationX="0"
-            android:rotationY="0"
-            android:text="Button"
-            android:translationX="120dp"
-            android:translationY="630dp" />
+        <!--        <Button-->
+<!--            android:id="@+id/buttonResizeR"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:onClick="gotoActivity"-->
+<!--            android:rotationX="0"-->
+<!--            android:rotationY="0"-->
+<!--            android:text="Button"-->
+<!--            android:translationX="210dp"-->
+<!--            android:translationY="670dp" />-->
 
-        <Button
-            android:id="@+id/buttonResizeL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="gotoActivity"
-            android:rotationX="0"
-            android:rotationY="0"
-            android:text="Button"
-            android:translationX="120dp"
-            android:translationY="670dp" />
+<!--        <Button-->
+<!--            android:id="@+id/buttonResizeL"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:onClick="gotoActivity"-->
+<!--            android:rotationX="0"-->
+<!--            android:rotationY="0"-->
+<!--            android:text="Button"-->
+<!--            android:translationX="120dp"-->
+<!--            android:translationY="670dp" />-->
 
-        <Button
-            android:id="@+id/buttonRotateR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="gotoActivity"
-            android:rotationX="0"
-            android:rotationY="0"
-            android:text="Button"
-            android:translationX="210dp"
-            android:translationY="630dp" />
 
-        <Button
-            android:id="@+id/buttonResizeR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="gotoActivity"
-            android:rotationX="0"
-            android:rotationY="0"
-            android:text="Button"
-            android:translationX="210dp"
-            android:translationY="670dp" />
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="77dp"
+            android:layout_margin="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="0dp"
+            android:contentDescription="fffff"
+            android:padding="0dp"
+            android:paddingStart="0dp"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:paddingEnd="0dp"
+            android:paddingRight="0dp"
+            android:paddingBottom="0dp"
+            android:theme="@style/Theme.BottomNavigation"
+            android:translationY="630dp"
+            app:backgroundTint="#7D6FF4"
+            app:itemPaddingBottom="0dp"
+            app:itemPaddingTop="0dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPosition"
+                style="@android:style/Widget.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:backgroundTint="#5B25A8"
+                android:contentDescription="jkjkk"
+                android:paddingLeft="30dp"
+                android:textColor="#FEFEFE"
+                android:textSize="20sp"
+                android:translationX="120dp"
+                app:icon="@drawable/up_down_left_right_solid"
+                app:iconSize="35dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddShape"
+                style="@android:style/Widget.Button.Small"
+                android:layout_width="99dp"
+                android:layout_height="match_parent"
+                android:backgroundTint="#6200ED"
+                android:contentDescription="hhh"
+                android:paddingLeft="30dp"
+                android:textColor="#FEFEFE"
+                android:textSize="20sp"
+                android:translationX="20dp"
+                app:icon="@drawable/baseline_add_box_24"
+                app:iconSize="35dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnResize"
+                style="@android:style/Widget.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:backgroundTint="#5B25A8"
+                android:contentDescription="aaaa"
+                android:minHeight="0dp"
+                android:paddingLeft="30dp"
+                android:textColor="#FEFEFE"
+                android:textSize="20sp"
+                android:translationX="210dp"
+                app:icon="@drawable/up_right_and_down_left_from_center_solid"
+                app:iconSize="35dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRotate"
+                style="@android:style/Widget.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:backgroundTint="#5B25A8"
+                android:paddingLeft="30dp"
+                android:textColor="#FEFEFE"
+                android:textSize="20sp"
+                android:translationX="300dp"
+                app:icon="@drawable/baseline_rotate_90_degrees_cw_24"
+                app:iconSize="35dp" />
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+        <LinearLayout
+            android:id="@+id/rotateMenu"
+            android:layout_width="match_parent"
+            android:layout_height="229dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:translationY="400dp"
+            android:visibility="gone"
+            >
+
+
+            <LinearLayout
+                android:id="@+id/rotateXMenu"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderRotateX"
+                    android:layout_width="297dp"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+                    android:value="0.0"
+                    android:valueFrom="-180.0"
+                    android:valueTo="180.0" />
+
+                <EditText
+                    android:id="@+id/textRotateX"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:autofillHints=""
+                    android:background="#6E79D3"
+                    android:backgroundTint="#565EA3"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:textColor="#FFFFFF"
+                    android:textColorHighlight="#262947"
+                    android:translationY="8dp"
+                    android:translationX="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rotateYMenu"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderRotateY"
+                    android:layout_width="297dp"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+                    android:value="0.0"
+                    android:valueFrom="-180.0"
+                    android:valueTo="180.0" />
+
+                <EditText
+                    android:id="@+id/textRotateY"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:autofillHints=""
+                    android:background="#6E79D3"
+                    android:backgroundTint="#565EA3"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:textColor="#FFFFFF"
+                    android:textColorHighlight="#262947"
+                    android:translationY="8dp"
+                    android:translationX="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rotateZMenu"
+                android:layout_width="match_parent"
+                android:layout_height="71dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderRotateZ"
+                    android:layout_width="297dp"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+                    android:value="0.0"
+                    android:valueFrom="-180.0"
+                    android:valueTo="180.0" />
+
+                <EditText
+                    android:id="@+id/textRotateZ"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:autofillHints=""
+                    android:background="#6E79D3"
+                    android:backgroundTint="#565EA3"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:textColor="#FFFFFF"
+                    android:textColorHighlight="#262947"
+                    android:translationY="8dp"
+                    android:translationX="15dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/resizeMenu"
+            android:layout_width="match_parent"
+            android:layout_height="229dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:translationY="400dp"
+            android:visibility="gone"
+            >
+
+
+            <LinearLayout
+                android:id="@+id/resizeXMenu"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderResizeX"
+                    android:layout_width="297dp"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+                    android:valueFrom="0.0"
+                    android:valueTo="200.0" />
+
+                <EditText
+                    android:id="@+id/textResizeX"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:autofillHints=""
+                    android:background="#6E79D3"
+                    android:backgroundTint="#565EA3"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:textColor="#FFFFFF"
+                    android:textColorHighlight="#262947"
+                    android:translationY="8dp"
+                    android:translationX="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/resizeYMenu"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderResizeY"
+                    android:layout_width="297dp"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+                    android:valueFrom="0.0"
+                    android:valueTo="200.0" />
+
+                <EditText
+                    android:id="@+id/textResizeY"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:autofillHints=""
+                    android:background="#6E79D3"
+                    android:backgroundTint="#565EA3"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:textColor="#FFFFFF"
+                    android:textColorHighlight="#262947"
+                    android:translationY="8dp"
+                    android:translationX="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/resizeZMenu"
+                android:layout_width="match_parent"
+                android:layout_height="71dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderResizeZ"
+                    android:layout_width="297dp"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+                    android:valueFrom="0.0"
+                    android:valueTo="200.0" />
+
+                <EditText
+                    android:id="@+id/textResizeZ"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:autofillHints=""
+                    android:background="#6E79D3"
+                    android:backgroundTint="#565EA3"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:textColor="#FFFFFF"
+                    android:textColorHighlight="#262947"
+                    android:translationY="8dp"
+                    android:translationX="15dp" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </FrameLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
