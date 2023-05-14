@@ -13,9 +13,21 @@ import java.util.ArrayList;
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private Triangle mTriangle;
-    private Square mSquare;
+
+    float width;
+    float height;
+    float ratio;
+    final float left = -ratio;
+    final float right = ratio;
+    final float bottom = -1.0f;
+    final float top = 1.0f;
+    final float near = 1.0f;
+    final float far = 1000.0f;
 
     // vPMatrix is an abbreviation for "Model View Projection Matrix"
+    public void setRatio() {
+        this.ratio = (float) width / height;
+    }
     private final float[] vPMatrix = new float[16];
     private final float[] projectionMatrix = new float[16];
     private final float[] viewMatrix = new float[16];
@@ -23,6 +35,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     public volatile float mAngle;
     public volatile float[] mScale = new float[] {1f, 1f, 0};
+    public volatile float[] mTranslate = new float[] {0f, 0f, 0f};
 
     public float getAngle() {
         return mAngle;
@@ -30,6 +43,14 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     public void setAngle(float angle) {
         mAngle = angle;
+    }
+
+    public float[] getTranslate() {
+        return mTranslate;
+    }
+
+    public void setTranslate(float[] mTranslate) {
+        this.mTranslate = mTranslate;
     }
 
     public float[] getScale(){
@@ -44,7 +65,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         // Set the background frame color
         //GLES20.glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
         mTriangle = new Triangle();
-        mSquare = new Square();
 
     }
 
@@ -59,12 +79,15 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         Matrix.setRotateM(rotationMatrix, 0, mAngle, 0, 0, -1.0f);
        // Matrix.setRotateM(rotationMatrix, 0, angle, 0, 0, -1.0f);
 
-
         // Set the camera position (View matrix)
         Matrix.setLookAtM(viewMatrix, 0, 0, 0, 3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
         // Calculate the projection and view transformation
+        Matrix.translateM(viewMatrix, 0, mTranslate[0], mTranslate[1], mTranslate[2]);
+
+
 
         Matrix.scaleM(viewMatrix, 0, mScale[0] ,mScale[1], mScale[2]);
+
 
         //Matrix.multiplyMM(vPMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
         //Matrix.multiplyMM(scratch, 0, vPMatrix, 0, rotationMatrix, 0);
@@ -78,7 +101,10 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     public void onSurfaceChanged(GL10 unused, int width, int height) {
         GLES30.glViewport(0, 0, width, height);
-        float ratio = (float) width / height;
+        this.width = width;
+        this.height = height;
+        setRatio();
+        //float ratio = (float) width / height;
 
         // this projection matrix is applied to object coordinates
         // in the onDrawFrame() method

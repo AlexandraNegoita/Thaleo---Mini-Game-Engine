@@ -174,6 +174,55 @@ class MyGLSurfaceView extends GLSurfaceView {
         requestRender();
     }
 
+    public void positionButton(float value, String ax){
+        float newPosition[] = new float[]{};
+        //String direction;
+        float fact = 0.01f;
+
+        switch (ax) {
+            case "X" : {
+                newPosition = new float[]{
+                        fact * value,
+                        renderer.getTranslate()[1],
+                        renderer.getTranslate()[2]
+                };
+                break;
+            }
+            case "Y" : {
+                newPosition = new float[]{
+                        renderer.getTranslate()[0],
+                        fact * value,
+                        renderer.getTranslate()[2]
+                };
+                break;
+            }
+            case "Z" : {
+                newPosition = new float[]{
+                        renderer.getTranslate()[0],
+                        renderer.getTranslate()[1],
+                        fact * value
+                };
+                break;
+            }
+        }
+        renderer.setTranslate(
+                newPosition
+        );
+
+        // reverse direction of rotation above the mid-line
+//        if (y > getHeight() / 2) {
+//            dx = dx * -1 ;
+//        }
+//
+//        // reverse direction of rotation to left of the mid-line
+//        if (x < getWidth() / 2) {
+//            dy = dy * -1 ;
+//        }
+
+        requestRender();
+    }
+
+
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         // MotionEvent reports input details from the touch screen

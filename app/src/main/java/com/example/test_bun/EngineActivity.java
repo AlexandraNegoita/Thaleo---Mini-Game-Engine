@@ -41,11 +41,20 @@ public class EngineActivity extends Activity {
     Slider sldResizeZ;
     EditText valueResizeZ;
 
+    Slider sldPositionX;
+    EditText valuePositionX;
+    Slider sldPositionY;
+    EditText valuePositionY;
+    Slider sldPositionZ;
+    EditText valuePositionZ;
 
     LinearLayout rotateMenu;
     LinearLayout resizeMenu;
+    LinearLayout positionMenu;
+
     Button btnRotateMenu;
     Button btnResizeMenu;
+    Button btnPositionMenu;
 
     EngineActivity e = this;
 
@@ -65,6 +74,7 @@ public class EngineActivity extends Activity {
 
         rotateMenu = findViewById(R.id.rotateMenu);
         resizeMenu = findViewById(R.id.resizeMenu);
+        positionMenu = findViewById(R.id.positionMenu);
 
         gLView = new MyGLSurfaceView(this);
         fl.addView(gLView,0);
@@ -113,6 +123,9 @@ public class EngineActivity extends Activity {
                     if(rotateMenu.getVisibility() == View.VISIBLE) {
                         rotateMenu.setVisibility(View.GONE);
                     }
+                    if(positionMenu.getVisibility() == View.VISIBLE) {
+                        positionMenu.setVisibility(View.GONE);
+                    }
                     resizeMenu.setVisibility(View.VISIBLE);
                 }
             }
@@ -128,7 +141,28 @@ public class EngineActivity extends Activity {
                     if(resizeMenu.getVisibility() == View.VISIBLE) {
                         resizeMenu.setVisibility(View.GONE);
                     }
+                    if(positionMenu.getVisibility() == View.VISIBLE) {
+                        positionMenu.setVisibility(View.GONE);
+                    }
                     rotateMenu.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        btnPositionMenu = findViewById(R.id.btnPosition);
+        btnPositionMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(positionMenu.getVisibility() == View.VISIBLE) {
+                    positionMenu.setVisibility(View.GONE);
+                } else {
+                    if(rotateMenu.getVisibility() == View.VISIBLE) {
+                        rotateMenu.setVisibility(View.GONE);
+                    }
+                    if(resizeMenu.getVisibility() == View.VISIBLE) {
+                        resizeMenu.setVisibility(View.GONE);
+                    }
+                    positionMenu.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -280,7 +314,7 @@ public class EngineActivity extends Activity {
         });
 
         sldResizeY = findViewById(R.id.sliderResizeY);
-        sldResizeY.setValue(gLView.getShapeScale()[0] * 100);
+        sldResizeY.setValue(gLView.getShapeScale()[1] * 100);
         sldResizeY.addOnChangeListener((slider, value, fromUser) -> {
             //Toast.makeText(getApplicationContext(), String.valueOf(value), Toast.LENGTH_SHORT).show();
             gLView.scaleButton(value, "Y");
@@ -318,7 +352,7 @@ public class EngineActivity extends Activity {
         });
 
         sldResizeZ = findViewById(R.id.sliderResizeZ);
-        sldResizeZ.setValue(gLView.getShapeScale()[0] * 100);
+        sldResizeZ.setValue(gLView.getShapeScale()[2] * 100);
         sldResizeZ.addOnChangeListener((slider, value, fromUser) -> {
             //Toast.makeText(getApplicationContext(), String.valueOf(value), Toast.LENGTH_SHORT).show();
             gLView.scaleButton(value, "Z");
@@ -342,6 +376,120 @@ public class EngineActivity extends Activity {
                     else {
                         //value *= 10;
                         sldResizeZ.setValue(value);
+                    }
+
+                } catch (NumberFormatException nfe) {
+                    Toast.makeText(getApplicationContext(), "Not a number", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        sldPositionX = findViewById(R.id.sliderPositionX);
+        sldPositionX.setValue(gLView.getShapeScale()[0]);
+        sldPositionX.addOnChangeListener((slider, value, fromUser) -> {
+            //Toast.makeText(getApplicationContext(), String.valueOf(value), Toast.LENGTH_SHORT).show();
+            gLView.positionButton(value, "X");
+        });
+
+        valuePositionX = findViewById(R.id.textPositionX);
+        valuePositionX.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int cjount, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                float value;
+                try {
+                    value = Float.parseFloat(s.toString());
+                    if(value < 0 || value > 200) {
+                        Toast.makeText(getApplicationContext(), "Insert a number from -100 to 100", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        //value *= 10;
+                        sldPositionX.setValue(value);
+                    }
+
+                } catch (NumberFormatException nfe) {
+                    Toast.makeText(getApplicationContext(), "Not a number", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        sldPositionY = findViewById(R.id.sliderPositionY);
+        sldPositionY.setValue(gLView.getShapeScale()[1]);
+        sldPositionY.addOnChangeListener((slider, value, fromUser) -> {
+            //Toast.makeText(getApplicationContext(), String.valueOf(value), Toast.LENGTH_SHORT).show();
+            gLView.positionButton(value, "Y");
+        });
+
+        valuePositionY = findViewById(R.id.textPositionY);
+        valuePositionY.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int cjount, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                float value;
+                try {
+                    value = Float.parseFloat(s.toString());
+                    if(value < 0 || value > 200) {
+                        Toast.makeText(getApplicationContext(), "Insert a number from -100 to 100", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        //value *= 10;
+                        sldPositionY.setValue(value);
+                    }
+
+                } catch (NumberFormatException nfe) {
+                    Toast.makeText(getApplicationContext(), "Not a number", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        sldPositionZ = findViewById(R.id.sliderPositionZ);
+        sldPositionZ.setValue(gLView.getShapeScale()[2]);
+        sldPositionZ.addOnChangeListener((slider, value, fromUser) -> {
+            //Toast.makeText(getApplicationContext(), String.valueOf(value), Toast.LENGTH_SHORT).show();
+            gLView.positionButton(value, "Z");
+        });
+
+        valuePositionZ = findViewById(R.id.textPositionZ);
+        valuePositionZ.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                float value;
+                try {
+                    value = Float.parseFloat(s.toString());
+                    if(value < 0 || value > 200) {
+                        Toast.makeText(getApplicationContext(), "Insert a number from -100 to 100", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        //value *= 10;
+                        sldPositionZ.setValue(value);
                     }
 
                 } catch (NumberFormatException nfe) {

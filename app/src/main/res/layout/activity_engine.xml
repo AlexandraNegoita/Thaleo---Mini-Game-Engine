@@ -324,6 +324,106 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/positionMenu"
+            android:layout_width="match_parent"
+            android:layout_height="229dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:translationY="400dp"
+            android:visibility="gone"
+            >
+
+
+            <LinearLayout
+                android:id="@+id/positionXMenu"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderPositionX"
+                    android:layout_width="297dp"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+                    android:valueFrom="-100.0"
+                    android:valueTo="100.0" />
+
+                <EditText
+                    android:id="@+id/textPositionX"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:autofillHints=""
+                    android:background="#6E79D3"
+                    android:backgroundTint="#565EA3"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:textColor="#FFFFFF"
+                    android:textColorHighlight="#262947"
+                    android:translationY="8dp"
+                    android:translationX="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/positionYMenu"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderPositionY"
+                    android:layout_width="297dp"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+                    android:valueFrom="-100.0"
+                    android:valueTo="100.0" />
+
+                <EditText
+                    android:id="@+id/textPositionY"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:autofillHints=""
+                    android:background="#6E79D3"
+                    android:backgroundTint="#565EA3"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:textColor="#FFFFFF"
+                    android:textColorHighlight="#262947"
+                    android:translationY="8dp"
+                    android:translationX="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/positionZMenu"
+                android:layout_width="match_parent"
+                android:layout_height="71dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderPositionZ"
+                    android:layout_width="297dp"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+                    android:valueFrom="-100.0"
+                    android:valueTo="100.0" />
+
+                <EditText
+                    android:id="@+id/textPositionZ"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:autofillHints=""
+                    android:background="#6E79D3"
+                    android:backgroundTint="#565EA3"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:textColor="#FFFFFF"
+                    android:textColorHighlight="#262947"
+                    android:translationY="8dp"
+                    android:translationX="15dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
     </FrameLayout>
 
 
