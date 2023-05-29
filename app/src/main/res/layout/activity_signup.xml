@@ -1,0 +1,114 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lavender"
+    tools:context=".SignupActivity"
+    android:id="@+id/frame_layout_signup">
+    >
+    <!-- TODO: Update blank fragment layout
+    PAGINA DE MY PROFILE -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Sign Up"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:translationY="-200dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="415dp"
+        android:orientation="vertical"
+        android:translationY="280dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="376dp"
+            android:layout_height="67dp"
+            android:translationX="15dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/firstNameInput"
+                android:layout_width="373dp"
+                android:layout_height="wrap_content"
+                android:hint="First Name" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="376dp"
+            android:layout_height="67dp"
+            android:translationX="15dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/lastNameInput"
+                android:layout_width="373dp"
+                android:layout_height="wrap_content"
+                android:hint="Last Name" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="376dp"
+            android:layout_height="67dp"
+            android:translationX="15dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailInput"
+                android:layout_width="373dp"
+                android:layout_height="wrap_content"
+                android:hint="Email" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="376dp"
+            android:layout_height="67dp"
+            android:translationX="15dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/usernameInput"
+                android:layout_width="373dp"
+                android:layout_height="wrap_content"
+                android:hint="Username" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="376dp"
+            android:layout_height="67dp"
+            android:translationX="15dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordInput"
+                android:layout_width="373dp"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:password="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="376dp"
+            android:layout_height="67dp"
+            android:translationX="15dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/confPasswordInput"
+                android:layout_width="373dp"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                android:password="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="217dp"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:translationX="90dp"
+        android:translationY="700dp" />
+
+
+
+
+
+</FrameLayout>

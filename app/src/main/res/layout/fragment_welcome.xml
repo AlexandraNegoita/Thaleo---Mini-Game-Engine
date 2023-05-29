@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lavender"
+    tools:context=".WelcomePageFragment"
+    android:id="@id/gallery">
+    <!-- TODO: Update blank fragment layout
+    PAGINA DE GALLERY -->
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="1346dp"
+        android:layout_height="1088dp"
+        android:src="@drawable/test"
+        android:translationX="-450dp"
+        android:translationY="-100dp" />
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="107dp"
+        android:layout_gravity="bottom"
+        android:id="@+id/menuFrame">
+
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotationY="-8"
+        android:text="Welcome to ThaleoDesign"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:translationY="400dp" />
+
+</FrameLayout>

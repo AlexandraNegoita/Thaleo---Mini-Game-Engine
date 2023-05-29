@@ -57,7 +57,7 @@
             android:paddingRight="0dp"
             android:paddingBottom="0dp"
             android:theme="@style/Theme.BottomNavigation"
-            android:translationY="630dp"
+            android:translationY="700dp"
             app:backgroundTint="#7D6FF4"
             app:itemPaddingBottom="0dp"
             app:itemPaddingTop="0dp">
@@ -120,6 +120,51 @@
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="77dp"
+            android:layout_margin="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="0dp"
+            android:contentDescription="fffff"
+            android:padding="0dp"
+            android:paddingStart="0dp"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:paddingEnd="0dp"
+            android:paddingRight="0dp"
+            android:paddingBottom="0dp"
+            android:theme="@style/Theme.BottomNavigation"
+            android:translationY="0dp"
+            app:backgroundTint="#7D6FF4"
+            app:itemPaddingBottom="0dp"
+            app:itemPaddingTop="0dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSave"
+                style="@android:style/Widget.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:backgroundTint="#5B25A8"
+                android:contentDescription="jkjkk"
+                android:paddingLeft="30dp"
+                android:textColor="#FEFEFE"
+                android:textSize="20sp"
+                android:translationX="200dp"
+                app:icon="@drawable/baseline_save_24"
+                app:iconSize="35dp" />
+
+            <ImageView
+                android:id="@+id/imgPreview"
+                android:translationX="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:src="@tools:sample/avatars" />
+
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
 
         <LinearLayout
             android:id="@+id/rotateMenu"
@@ -127,7 +172,7 @@
             android:layout_height="229dp"
             android:gravity="center"
             android:orientation="vertical"
-            android:translationY="400dp"
+            android:translationY="500dp"
             android:visibility="gone"
             >
 
@@ -155,7 +200,7 @@
                     android:background="#6E79D3"
                     android:backgroundTint="#565EA3"
                     android:gravity="center"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textColor="#FFFFFF"
                     android:textColorHighlight="#262947"
                     android:translationY="8dp"
@@ -185,7 +230,7 @@
                     android:background="#6E79D3"
                     android:backgroundTint="#565EA3"
                     android:gravity="center"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textColor="#FFFFFF"
                     android:textColorHighlight="#262947"
                     android:translationY="8dp"
@@ -215,7 +260,7 @@
                     android:background="#6E79D3"
                     android:backgroundTint="#565EA3"
                     android:gravity="center"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textColor="#FFFFFF"
                     android:textColorHighlight="#262947"
                     android:translationY="8dp"
@@ -230,7 +275,7 @@
             android:layout_height="229dp"
             android:gravity="center"
             android:orientation="vertical"
-            android:translationY="400dp"
+            android:translationY="500dp"
             android:visibility="gone"
             >
 
@@ -257,7 +302,7 @@
                     android:background="#6E79D3"
                     android:backgroundTint="#565EA3"
                     android:gravity="center"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textColor="#FFFFFF"
                     android:textColorHighlight="#262947"
                     android:translationY="8dp"
@@ -286,7 +331,7 @@
                     android:background="#6E79D3"
                     android:backgroundTint="#565EA3"
                     android:gravity="center"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textColor="#FFFFFF"
                     android:textColorHighlight="#262947"
                     android:translationY="8dp"
@@ -315,7 +360,7 @@
                     android:background="#6E79D3"
                     android:backgroundTint="#565EA3"
                     android:gravity="center"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textColor="#FFFFFF"
                     android:textColorHighlight="#262947"
                     android:translationY="8dp"
@@ -330,7 +375,7 @@
             android:layout_height="229dp"
             android:gravity="center"
             android:orientation="vertical"
-            android:translationY="400dp"
+            android:translationY="500dp"
             android:visibility="gone"
             >
 
@@ -357,7 +402,7 @@
                     android:background="#6E79D3"
                     android:backgroundTint="#565EA3"
                     android:gravity="center"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textColor="#FFFFFF"
                     android:textColorHighlight="#262947"
                     android:translationY="8dp"
@@ -386,7 +431,7 @@
                     android:background="#6E79D3"
                     android:backgroundTint="#565EA3"
                     android:gravity="center"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textColor="#FFFFFF"
                     android:textColorHighlight="#262947"
                     android:translationY="8dp"
@@ -415,7 +460,7 @@
                     android:background="#6E79D3"
                     android:backgroundTint="#565EA3"
                     android:gravity="center"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:textColor="#FFFFFF"
                     android:textColorHighlight="#262947"
                     android:translationY="8dp"

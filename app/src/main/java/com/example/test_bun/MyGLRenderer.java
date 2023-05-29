@@ -3,16 +3,35 @@ package com.example.test_bun;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import android.graphics.Bitmap;
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.os.SystemClock;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.ShortBuffer;
 import java.util.ArrayList;
 
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private Triangle mTriangle;
+    //private Square mCube;
+    private Cube mCube;
+    private Pyramid mPyramid;
+    private Model mModel;
+
+    public String getSelected() {
+        return selected;
+    }
+
+    public void setSelected(String selected) {
+        this.selected = selected;
+    }
+
+    private String selected = "pyramid";
+
 
     float width;
     float height;
@@ -23,6 +42,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     final float top = 1.0f;
     final float near = 1.0f;
     final float far = 1000.0f;
+    public Bitmap bm;
 
     // vPMatrix is an abbreviation for "Model View Projection Matrix"
     public void setRatio() {
@@ -36,6 +56,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public volatile float mAngle;
     public volatile float[] mScale = new float[] {1f, 1f, 0};
     public volatile float[] mTranslate = new float[] {0f, 0f, 0f};
+    public volatile float[] mRotate = new float[] {0f, 0f, -1.0f};
 
     public float getAngle() {
         return mAngle;
@@ -52,9 +73,15 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void setTranslate(float[] mTranslate) {
         this.mTranslate = mTranslate;
     }
+    public void setRotate(float[] mRotate) {
+        this.mRotate = mRotate;
+    }
 
     public float[] getScale(){
         return mScale;
+    }
+    public float[] getRotate(){
+        return mRotate;
     }
 
     public void setScale(float[] scale) {
@@ -64,11 +91,20 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
         // Set the background frame color
         //GLES20.glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
-        mTriangle = new Triangle();
-
+       mTriangle = new Triangle();
+       //mCube = new Square();
+        mCube = new Cube();
+        mPyramid = new Pyramid();
     }
 
     public void onDrawFrame(GL10 unused) {
+        if(this.selected == "pyramid") {
+            mModel = mPyramid;
+        } else if(this.selected == "cube") {
+            mModel = mCube;
+        } else {
+            mModel = mTriangle;
+        }
         // Redraw background color
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT);
 //        mTriangle.draw();
@@ -76,7 +112,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         // Create a rotation transformation for the triangle
         long time = SystemClock.uptimeMillis() % 4000L;
         //float angle = 0.090f * ((int) time);
-        Matrix.setRotateM(rotationMatrix, 0, mAngle, 0, 0, -1.0f);
+        Matrix.setRotateM(rotationMatrix, 0, mAngle, mRotate[0], mRotate[1], mRotate[2]);
        // Matrix.setRotateM(rotationMatrix, 0, angle, 0, 0, -1.0f);
 
         // Set the camera position (View matrix)
@@ -96,7 +132,11 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
 
         // Draw shape
-        mTriangle.draw(scratch);
+       // mTriangle.draw(scratch);
+       // mCube.draw(scratch);
+        mModel.draw(scratch);
+        //mCube.draw(scratch);
+        bm  = createBitmap((int) this.width, (int) this.height);
     }
 
     public void onSurfaceChanged(GL10 unused, int width, int height) {
@@ -110,6 +150,38 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         // in the onDrawFrame() method
         Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
 
+    }
+    public static Bitmap createBitmap(int width, int height){
+
+        int screenshotSize = width * height;
+        ByteBuffer bb = ByteBuffer.allocateDirect(screenshotSize * 4);
+        bb.order(ByteOrder.nativeOrder());
+        GLES30.glReadPixels(5, 0, width, height, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, bb);
+        int pixelsBuffer[] = new int[screenshotSize];
+        bb.asIntBuffer().get(pixelsBuffer);
+        bb = null;
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        bitmap.setPixels(pixelsBuffer, screenshotSize-width, -width,0, 0, width, height);
+        pixelsBuffer = null;
+
+        short sBuffer[] = new short[screenshotSize];
+        ShortBuffer sb = ShortBuffer.wrap(sBuffer);
+        bitmap.copyPixelsToBuffer(sb);
+
+        //Making created bitmap (from OpenGL points) compatible with Android bitmap
+        for (int i = 0; i < screenshotSize; ++i) {
+            short v = sBuffer[i];
+            sBuffer[i] = (short) (((v&0x1f) << 11) | (v&0x7e0) | ((v&0xf800) >> 11));
+        }
+        sb.rewind();
+        bitmap.copyPixelsFromBuffer(sb);
+//            if(savepicture!=null){
+//                savepicture.onPictureSaved(bitmap);
+//                // new SaveTask(bitmap, FileUtils.getFileDir().getPath(),"IMG"+System.currentTimeMillis()+".png", savepicture).execute();
+//                screenshot = false;
+//            }
+
+        return bitmap;
     }
 
 //    public void scaleModel() {

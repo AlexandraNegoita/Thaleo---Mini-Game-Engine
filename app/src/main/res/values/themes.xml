@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Base application theme. -->
     <style name="Theme.BottomNavigation" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
@@ -13,6 +13,7 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
     <style name="AppTextAppearance.Button" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:textAllCaps">true</item>
     </style>
@@ -21,6 +22,11 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
+    <style name="ShapeAppearanceOverlay.App.circleImageView" parent="">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">50%</item>
+    </style>
 
     <style name="Theme.Test_Bun" parent="Base.Theme.Test_Bun" />
+
 </resources>

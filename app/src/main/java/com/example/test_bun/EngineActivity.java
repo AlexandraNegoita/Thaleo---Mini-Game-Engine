@@ -1,10 +1,17 @@
 package com.example.test_bun;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.opengl.GLSurfaceView;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
@@ -13,12 +20,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.material.slider.Slider;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EngineActivity extends Activity {
     private MyGLSurfaceView gLView;
@@ -56,6 +71,13 @@ public class EngineActivity extends Activity {
     Button btnResizeMenu;
     Button btnPositionMenu;
 
+    Button btnSave;
+    ImageView imgPreview;
+    Bitmap bm;
+
+    Post post;
+    PostDAO postConn = PostDAO.getInstance();
+
     EngineActivity e = this;
 
     public static int getScreenHeight(Context context) {
@@ -79,7 +101,7 @@ public class EngineActivity extends Activity {
         gLView = new MyGLSurfaceView(this);
         fl.addView(gLView,0);
        // gLView.setLayoutParams(new ViewGroup.LayoutParams(347, 642));
-        gLView.getLayoutParams().height = (int) (getScreenHeight(this) * 0.80);
+        gLView.getLayoutParams().height = (int) (getScreenHeight(this) * 0.90);
        // setContentView(R.layout.activity_engine);
 //        editBox = new Button(this);
 //        editBox.setText("Go to Main");
@@ -169,7 +191,7 @@ public class EngineActivity extends Activity {
 
         sldRotateX = findViewById(R.id.sliderRotateX);
         sldRotateX.addOnChangeListener((slider, value, fromUser) -> {
-            gLView.rotateButton(value);
+            gLView.rotateButton(value, "X");
 
         });
 
@@ -205,7 +227,7 @@ public class EngineActivity extends Activity {
 
         sldRotateY = findViewById(R.id.sliderRotateY);
         sldRotateY.addOnChangeListener((slider, value, fromUser) -> {
-            gLView.rotateButton(value);
+            gLView.rotateButton(value, "Y");
 
         });
 
@@ -241,7 +263,7 @@ public class EngineActivity extends Activity {
 
         sldRotateZ = findViewById(R.id.sliderRotateZ);
         sldRotateZ.addOnChangeListener((slider, value, fromUser) -> {
-            gLView.rotateButton(value);
+            gLView.rotateButton(value, "Z");
 
         });
 
@@ -566,10 +588,73 @@ public class EngineActivity extends Activity {
 //        });
 
       //  addContentView(editBox, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        btnSave = (Button) findViewById(R.id.btnSave);
+        imgPreview = (ImageView) findViewById(R.id.imgPreview);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new InfoAsyncTask().execute();
+            }
+        });
+
+        Button btnAddShape = (Button) findViewById(R.id.btnAddShape);
+        btnAddShape.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gLView.changeSelected();
+            }
+        });
+
     }
     public void gotoActivity(View View)
     {
         Intent engine = new Intent(this,MainActivity.class);
         startActivity(engine);
     }
+    public void saveImage(Bitmap bm) throws IOException {
+        ContextWrapper cw = new ContextWrapper(this.getApplicationContext());
+        //String path = Environment.getExternalStorageDirectory().toString();
+        String fullPath =cw.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS).toString();
+        //File directory = cw.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
+          //  path= Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpeg";
+
+        OutputStream fOut = null;
+        Integer counter = 0;
+        File file = new File(fullPath, "ThaleoRender"+counter+".jpg"); // the File to save , append increasing numeric counter to prevent files from getting overwritten.
+        fOut = new FileOutputStream(file);
+
+
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, fOut); // saving the Bitmap to a file compressed as a JPEG with 85% compression rate
+        fOut.flush(); // Not really required
+        fOut.close(); // do not forget to close the stream
+
+        MediaStore.Images.Media.insertImage(getContentResolver(),file.getAbsolutePath(),file.getName(),file.getName());
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public class InfoAsyncTask extends AsyncTask<Void, Void, Map<String, String>> {
+        @Override
+        protected Map<String, String> doInBackground(Void... voids) {
+            Map<String, String> info = new HashMap<>();
+            bm = gLView.getBitmap();
+            postConn.setPost(UserDAO.getInstance().getUserData().getUserID(), "thaleoRender"+ postConn.count+".jpg", bm, "private");
+            info.put("image", "true");
+            return info;
+        }
+
+        @Override
+        protected void onPostExecute(Map<String, String> result) {
+            if (!result.isEmpty()) {
+
+                imgPreview.setImageBitmap(bm);
+                try {
+                    saveImage(bm);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        }
+    }
+
 }

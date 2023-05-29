@@ -19,6 +19,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,6 +38,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.ShortBuffer;
 
 class MyGLSurfaceView extends GLSurfaceView {
 
@@ -126,6 +130,55 @@ class MyGLSurfaceView extends GLSurfaceView {
 //        requestRender();
 //    }
 
+    public void rotateButton(float value, String ax){
+        float newRotate[] = new float[]{};
+        //String direction;
+        float fact = 0.01f;
+        renderer.setAngle(value);
+        switch (ax) {
+            case "X" : {
+                newRotate = new float[]{
+                        renderer.getRotate()[0] + fact,
+                        renderer.getRotate()[1],
+                        renderer.getRotate()[2]
+                };
+                break;
+            }
+            case "Y" : {
+                newRotate = new float[]{
+                        renderer.getRotate()[0],
+                        renderer.getRotate()[1] + fact,
+                        renderer.getRotate()[2]
+                };
+                break;
+            }
+            case "Z" : {
+                newRotate = new float[]{
+                        renderer.getRotate()[0],
+                        renderer.getRotate()[1],
+                        renderer.getRotate()[2] + fact
+                };
+                break;
+            }
+        }
+        renderer.setRotate(
+            newRotate
+        );
+
+        requestRender();
+    }
+
+    public void changeSelected(){
+        if(renderer.getSelected().equals("triangle")){
+            renderer.setSelected("cube");
+        } else if (renderer.getSelected().equals("cube")) {
+            renderer.setSelected("pyramid");
+        }else  {
+            renderer.setSelected("triangle");
+        }
+        requestRender();
+    }
+
     public void scaleButton(float value, String ax){
         float newScale[] = new float[]{};
         //String direction;
@@ -158,7 +211,7 @@ class MyGLSurfaceView extends GLSurfaceView {
             }
         }
         renderer.setScale(
-            newScale
+                newScale
         );
 
         // reverse direction of rotation above the mid-line
@@ -173,6 +226,7 @@ class MyGLSurfaceView extends GLSurfaceView {
 
         requestRender();
     }
+
 
     public void positionButton(float value, String ax){
         float newPosition[] = new float[]{};
@@ -258,4 +312,8 @@ class MyGLSurfaceView extends GLSurfaceView {
         previousY = y;
         return true;
     }
+    public Bitmap getBitmap(){
+        return renderer.bm;
+    }
+
 }

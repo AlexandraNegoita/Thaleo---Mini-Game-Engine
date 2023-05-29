@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLyt"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="430dp"
+        android:layout_alignParentTop="true"
+        android:background="#2F3261"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Save Image?"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:translationX="60dp" />
+
+        <Button
+            android:id="@+id/btnSaveImage"
+            android:layout_width="111dp"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:translationX="120dp"
+            android:translationY="360dp" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="111dp"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:translationX="5dp"
+            android:translationY="360dp" />
+
+        <ImageView
+            android:id="@+id/imgPreview"
+            android:layout_width="238dp"
+            android:layout_height="268dp"
+            android:translationY="50dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

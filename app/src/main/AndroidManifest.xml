@@ -6,6 +6,8 @@
         android:glEsVersion="0x00030000"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,13 +16,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:requestLegacyExternalStorage="true"
+
+        android:hardwareAccelerated="false"
+        android:largeHeap="true">
 
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MENU" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -35,14 +42,50 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MyProfileFragment"
-            android:exported="true" />
+            android:name=".GalleryActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.GALLERY" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".GalleryFragment"
+            android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".SignupActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SIGNUP" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MyProfileFragment"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PROFILE" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".WelcomePageFragment"
             android:exported="true" />
         <activity
             android:name=".NewProjectFragment"
             android:exported="true" />
     </application>
+
 
 </manifest>

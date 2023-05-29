@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-public class Triangle {
+public class Triangle  extends Model{
     private int positionHandle;
     private int colorHandle;
 
@@ -52,6 +52,7 @@ public class Triangle {
 
 
     public Triangle() {
+        super();
         // initialize vertex byte buffer for shape coordinates
         ByteBuffer bb = ByteBuffer.allocateDirect(
                 // (number of coordinate values * 4 bytes per float)
@@ -84,6 +85,7 @@ public class Triangle {
         GLES20.glLinkProgram(mProgram);
     }
 
+    @Override
     public void draw(float[] mvpMatrix) { // pass in the calculated transformation matrix
         // Add program to OpenGL ES environment
         GLES20.glUseProgram(mProgram);

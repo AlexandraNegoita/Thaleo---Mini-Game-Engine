@@ -1,0 +1,71 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lavender"
+    tools:context=".LoginActivity"
+    android:id="@+id/frame_layout_login">
+    >
+    <!-- TODO: Update blank fragment layout
+    PAGINA DE MY PROFILE -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Log In"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:translationY="-50dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="139dp"
+        android:orientation="vertical"
+        android:translationY="400dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="376dp"
+            android:layout_height="67dp"
+            android:translationX="15dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/usernameInput"
+                android:layout_width="373dp"
+                android:layout_height="wrap_content"
+                android:hint="Username" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="376dp"
+            android:layout_height="67dp"
+            android:translationX="15dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordInput"
+                android:layout_width="373dp"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:password="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:translationX="100dp"
+        android:translationY="550dp" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log In"
+        android:onClick="gotoActivityLogin"
+        android:translationX="220dp"
+        android:translationY="550dp" />
+
+
+
+</FrameLayout>

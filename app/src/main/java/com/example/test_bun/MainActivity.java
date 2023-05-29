@@ -9,12 +9,14 @@ import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.test_bun.databinding.ActivityMainBinding;
 
 public class MainActivity extends Activity {
 
     ActivityMainBinding binding;
+    Button btn;
     private GLSurfaceView gLView;
 
     @Override
@@ -23,15 +25,15 @@ public class MainActivity extends Activity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        replaceFragment(new GalleryFragment());
+        replaceFragment(new WelcomePageFragment());
         binding.bottomNavigationView.setBackground(null);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if(item.getItemId() == R.id.gallery) {
-                replaceFragment(new GalleryFragment());
+                replaceFragment(new WelcomePageFragment());
             }
             else if(item.getItemId() == R.id.my_profile) {
-                replaceFragment(new MyProfileFragment());
+                gotoActivityProfile();
             }
 //            switch (item.getItemId()) {
 //                case R.id.home:
@@ -55,7 +57,14 @@ public class MainActivity extends Activity {
         });
 
         binding.plusButton.setOnClickListener(item -> {
-                replaceFragment(new NewProjectFragment());
+               gotoActivity();
+        });
+        btn = findViewById(R.id.button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoActivityGallery();
+            }
         });
         // Create a GLSurfaceView instance and set it
         // as the ContentView for this Activity.
@@ -69,9 +78,24 @@ public class MainActivity extends Activity {
         fragmentTransaction.commit();
     }
 
-    public void gotoActivity(View View)
+    public void gotoActivity()
     {
         Intent engine = new Intent(this,EngineActivity.class);
         startActivity(engine);
+    }
+    public void gotoActivityLogin(View View)
+    {
+        Intent login = new Intent(this,LoginActivity.class);
+        startActivity(login);
+    }
+    public void gotoActivityProfile()
+    {
+        Intent profile = new Intent(MainActivity.this,MyProfileFragment.class);
+        startActivity(profile);
+    }
+    public void gotoActivityGallery()
+    {
+        Intent gallery = new Intent(MainActivity.this, GalleryActivity.class);
+        startActivity(gallery);
     }
 }

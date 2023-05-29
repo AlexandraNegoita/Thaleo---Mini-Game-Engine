@@ -20,6 +20,8 @@ public class Square {
     // number of coordinates per vertex in this array
     static final int COORDS_PER_VERTEX = 3;
     private final int mProgram;
+    private int vPMatrixHandle;
+
 
     static float squareCoords[] = {
             -0.5f,  0.5f, 0.0f,   // top left
@@ -79,7 +81,7 @@ public class Square {
         // creates OpenGL ES program executables
         GLES20.glLinkProgram(mProgram);
     }
-    public void draw() {
+    public void draw(float[] mvpMatrix) { // pass in the calculated transformation matrix
         // Add program to OpenGL ES environment
         GLES20.glUseProgram(mProgram);
 
@@ -100,10 +102,23 @@ public class Square {
         // Set color for drawing the triangle
         GLES20.glUniform4fv(colorHandle, 1, color, 0);
 
-        // Draw the triangle
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
+        // get handle to shape's transformation matrix
+        vPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
 
+        // Pass the projection and view transformation to the shader
+        GLES20.glUniformMatrix4fv(vPMatrixHandle, 1, false, mvpMatrix, 0);
+
+        // Draw the triangle
+        //GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, vertexCount);
+        GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length,
+                GLES20.GL_UNSIGNED_SHORT, drawListBuffer);
         // Disable vertex array
         GLES20.glDisableVertexAttribArray(positionHandle);
+
+        // Draw the triangle
+        //GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
+
+        // Disable vertex array
+        //GLES20.glDisableVertexAttribArray(positionHandle);
     }
 }
