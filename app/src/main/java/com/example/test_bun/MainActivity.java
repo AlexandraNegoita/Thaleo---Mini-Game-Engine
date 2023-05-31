@@ -13,11 +13,11 @@ import android.widget.Button;
 
 import com.example.test_bun.databinding.ActivityMainBinding;
 
-public class MainActivity extends Activity {
 
+public class MainActivity extends Activity {
+    User user = UserDAO.getInstance(this).getUserData();
     ActivityMainBinding binding;
     Button btn;
-    private GLSurfaceView gLView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,32 +29,27 @@ public class MainActivity extends Activity {
         binding.bottomNavigationView.setBackground(null);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            if(item.getItemId() == R.id.gallery) {
-                replaceFragment(new WelcomePageFragment());
+            if(item.getItemId() == R.id.public_posts) {
+                gotoActivityPublicPosts();
             }
             else if(item.getItemId() == R.id.my_profile) {
                 gotoActivityProfile();
             }
-//            switch (item.getItemId()) {
-//                case R.id.home:
-//                    replaceFragment(new HomeFragment());
-//                    break;
-//
-//                case R.id.shorts:
-//                    replaceFragment(new ShortsFragment());
-//                    break;
-//
-//                case R.id.subscriptions:
-//                    replaceFragment(new SubscriptionsFragment());
-//                    break;
-//
-//                case R.id.library:
-//                    replaceFragment(new LibraryFragment());
-//                    break;
-//            }
             return true;
 
         });
+
+        Button btnAdmin = findViewById(R.id.btnAdmin);
+        btnAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoActivityAdmin();
+            }
+        });
+        user.setRole();
+        if(user.getRole().equals("admin")){
+            btnAdmin.setVisibility(View.VISIBLE);
+        }
 
         binding.plusButton.setOnClickListener(item -> {
                gotoActivity();
@@ -66,9 +61,6 @@ public class MainActivity extends Activity {
                 gotoActivityGallery();
             }
         });
-        // Create a GLSurfaceView instance and set it
-        // as the ContentView for this Activity.
-
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -97,5 +89,15 @@ public class MainActivity extends Activity {
     {
         Intent gallery = new Intent(MainActivity.this, GalleryActivity.class);
         startActivity(gallery);
+    }
+    public void gotoActivityPublicPosts()
+    {
+        Intent publicPosts = new Intent(MainActivity.this, PublicPostsActivity.class);
+        startActivity(publicPosts);
+    }
+    public void gotoActivityAdmin()
+    {
+        Intent admin = new Intent(MainActivity.this, AdminActivity.class);
+        startActivity(admin);
     }
 }

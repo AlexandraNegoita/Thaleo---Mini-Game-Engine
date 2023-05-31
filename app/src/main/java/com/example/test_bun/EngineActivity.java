@@ -22,9 +22,11 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 
 import com.google.android.material.slider.Slider;
 
@@ -99,6 +101,7 @@ public class EngineActivity extends Activity {
         positionMenu = findViewById(R.id.positionMenu);
 
         gLView = new MyGLSurfaceView(this);
+
         fl.addView(gLView,0);
        // gLView.setLayoutParams(new ViewGroup.LayoutParams(347, 642));
         gLView.getLayoutParams().height = (int) (getScreenHeight(this) * 0.90);
@@ -638,7 +641,7 @@ public class EngineActivity extends Activity {
         protected Map<String, String> doInBackground(Void... voids) {
             Map<String, String> info = new HashMap<>();
             bm = gLView.getBitmap();
-            postConn.setPost(UserDAO.getInstance().getUserData().getUserID(), "thaleoRender"+ postConn.count+".jpg", bm, "private");
+            postConn.setPost(UserDAO.getInstance(getApplicationContext()).getUserData().getUserID(), "thaleoRender"+ postConn.count+".jpg", bm, "private");
             info.put("image", "true");
             return info;
         }

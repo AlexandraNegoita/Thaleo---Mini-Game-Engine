@@ -9,6 +9,13 @@
 
 
     >
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="1346dp"
+        android:layout_height="1088dp"
+        android:src="@drawable/background"
+        android:translationX="-450dp"
+        android:translationY="-100dp" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profilePicture1"
@@ -32,6 +39,7 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profilePicture"
+            android:src="@drawable/ic_nopic_background"
             android:layout_width="169dp"
             android:layout_height="164dp"
             android:translationX="20dp"
@@ -67,17 +75,32 @@
             android:textSize="20sp"
             android:translationX="200dp"
             android:translationY="-70dp" />
+
+        <Button
+            android:id="@+id/btnSignout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="sign out" />
     </LinearLayout>
 
+        <TextView
+            android:id="@+id/publicPostsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Public Posts"
+            android:textSize="24sp"
+            android:translationX="30dp"
+            android:translationY="300dp" />
 
-    <TextView
-        android:id="@+id/publicPostsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Public Posts"
-        android:textSize="24sp"
-        android:translationX="30dp"
-        android:translationY="300dp" />
+    <LinearLayout
+        android:id="@+id/publicPostsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="504dp"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
 
+        >
+
+    </LinearLayout>
 
 </FrameLayout>

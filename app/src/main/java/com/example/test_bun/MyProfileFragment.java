@@ -20,10 +20,13 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Base64InputStream;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -33,11 +36,16 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MyProfileFragment extends Activity {
-    UserDAO user = UserDAO.getInstance();
+    PostDAO post = PostDAO.getInstance();
+    ArrayList<Post> p;
+    MyProfileFragment ga = this;
+    LinearLayout ll;
+    UserDAO user = UserDAO.getInstance(ga);
     profilePictureDAO picture = profilePictureDAO.getInstance();
     String username;
     TextView usernameView;
@@ -59,6 +67,17 @@ public class MyProfileFragment extends Activity {
         profilePicture = (ImageView) findViewById(R.id.profilePicture);
         new InfoAsyncProfile().execute();
 
+        ll = findViewById(R.id.publicPostsContainer);
+        new InfoAsyncPublicPosts().execute();
+
+        Button btnSignout = (Button) findViewById(R.id.btnSignout);
+        btnSignout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceActivity();
+            }
+        });
+
         profilePicture.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
@@ -70,6 +89,10 @@ public class MyProfileFragment extends Activity {
             }
         });
 
+    }
+    private void replaceActivity(){
+        Intent k = new Intent(MyProfileFragment.this, LoginActivity.class);
+        startActivity(k);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -113,10 +136,14 @@ public class MyProfileFragment extends Activity {
         @Override
         protected Bitmap doInBackground(Void... voids) {
             Bitmap bm = null;
-
-            pp = picture.getPicture(user.getUserData().getUserID());
+            try {
+                pp = picture.getPicture(user.getUserData().getUserID());
                 Base64InputStream base64InputStream = new Base64InputStream(picture.getProfilePicture().getImage(),Base64.DEFAULT);
                 bm = BitmapFactory.decodeStream(base64InputStream);
+            } catch(Exception e) {
+
+            }
+
 //               // bm = BitmapFactory.decodeStream(pp.getImage().getBinaryStream());
 
             return bm;
@@ -129,6 +156,85 @@ public class MyProfileFragment extends Activity {
                 profilePicture = (ImageView) findViewById(R.id.profilePicture);
 
                 profilePicture.setImageBitmap(result);
+            }
+        }
+    }
+    @SuppressLint("StaticFieldLeak")
+    public class InfoAsyncPublicPosts extends AsyncTask<Void, Void, ArrayList<Post>> {
+        @Override
+        protected ArrayList<Post> doInBackground(Void... voids) {
+            p = new ArrayList<>();
+            p = post.getPublicPosts(user.getUserData().getUserID());
+            for(Post pp: p){
+                Bitmap bm;
+                Base64InputStream base64InputStream = new Base64InputStream(pp.getFile(),Base64.DEFAULT);
+                bm = BitmapFactory.decodeStream(base64InputStream);
+                pp.setFileFull(bm);
+            }
+            return p;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Post> result) {
+            if (result != null) {
+                int counter = 1;
+                LinearLayout llh = new LinearLayout(ga);
+                llh.setOrientation(LinearLayout.HORIZONTAL);
+                llh.setTranslationY(160);
+                ll.addView(llh);
+                for(Post pp : result) {
+                    if(counter%3 == 0){
+                        llh = new LinearLayout(ga);
+                        llh.setOrientation(LinearLayout.HORIZONTAL);
+                        llh.setTranslationY(330);
+                        ll.addView(llh);
+                    }
+                    LinearLayout llimg = new LinearLayout(ga);
+                    llimg.setOrientation(LinearLayout.VERTICAL);
+                    ImageView iv = new ImageView(ga);
+                    iv.setLayoutParams(new android.view.ViewGroup.LayoutParams(500,680));
+                  //  Bitmap cpy = pp.getFileFull();
+
+                    iv.setImageBitmap(pp.getFileFull());
+
+                    TextView tv = new TextView(ga);
+                    tv.setTextSize(16);
+                    tv.setText(pp.getFileName());
+                    tv.setGravity(Gravity.CENTER_HORIZONTAL);
+
+//                    iv.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            ImageView viewImage = findViewById(R.id.viewImage);
+//                            viewImage.setImageBitmap(cpy);
+//                            viewImage.setVisibility(View.VISIBLE);
+//                            TextView textGallery = findViewById(R.id.textGallery);
+//                            textGallery.setText(pp.getFileName());
+//                            Button btnPublic = findViewById(R.id.btnPostPublic);
+//                            btnPublic.setVisibility(View.VISIBLE);
+//                            btnPublic.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    pp.setVisibility("public");
+//                                }
+//                            });
+//                            viewImage.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    viewImage.setVisibility(View.GONE);
+//                                    btnPublic.setVisibility(View.GONE);
+//                                    textGallery.setText("My Projects");
+//                                }
+//                            });
+//                        }
+//                    });
+
+                    llimg.addView(iv);
+                    llimg.addView(tv);
+                    llh.addView(llimg);
+
+                    counter++;
+                }
             }
         }
     }

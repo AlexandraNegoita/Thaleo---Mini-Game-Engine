@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,7 +20,7 @@ import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
 
-    UserDAO userConn = UserDAO.getInstance();
+    UserDAO userConn = UserDAO.getInstance(this);
     TextInputEditText usernameInput;
     TextInputEditText passwordInput;
     TextInputEditText firstNameInput;
@@ -54,6 +55,10 @@ public class SignupActivity extends AppCompatActivity {
                 // Code here executes on main thread after user presses button
                 usernameText = usernameInput.getText().toString();
                 passwordText = passwordInput.getText().toString();
+                firstNameText = firstNameInput.getText().toString();
+                lastNameText = lastNameInput.getText().toString();
+                emailText = emailInput.getText().toString();
+                confPasswordText = confPasswordInput.getText().toString();
                 new InfoAsyncTask().execute();
             }
         });
@@ -64,12 +69,16 @@ public class SignupActivity extends AppCompatActivity {
         @Override
         protected Map<String, String> doInBackground(Void... voids) {
             Map<String, String> info = new HashMap<>();
+            if(passwordText.equals(confPasswordText)){
+                userConn.register(usernameText, passwordText, firstNameText, lastNameText, emailText);
+                User user = userConn.login(usernameText, passwordText);
+                info.put("username", user.getUsername());
+                info.put("password", user.getPassword());
+                info.put("email", user.getEmail());
+            } else {
+                Toast.makeText(getApplicationContext(), "Passwords don't match!", Toast.LENGTH_SHORT).show();
+            }
 
-            userConn.register(usernameText, passwordText, firstNameText, lastNameText, emailText);
-            User user = userConn.login(usernameText, passwordText);
-            info.put("username", user.getUsername());
-            info.put("password", user.getPassword());
-            info.put("email", user.getEmail());
             return info;
         }
 

@@ -1,6 +1,8 @@
 package com.example.test_bun;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,17 +10,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class UserDAO {
-    private static final String URL = "jdbc:mysql://192.168.1.124:3309/thaleodb";
+    private static final String URL = "jdbc:mysql://192.168.30.135:3309/thaleodb";
     private static final String USER = "root";
     private static final String PASSWORD = "11111111";
     private static UserDAO instance;
     private User userData;
+    private Context context;
 
-    private UserDAO(){}
+    private UserDAO(Context context){
+        this.context = context;
+    }
 
-    public static synchronized UserDAO getInstance(){
+    public static synchronized UserDAO getInstance(Context context){
         if (instance == null) {
-            instance = new UserDAO();
+            instance = new UserDAO(context);
         }
         return instance;
     }
@@ -44,6 +49,8 @@ public class UserDAO {
                 );
             }
         } catch (Exception e) {
+            Toast.makeText(this.context, "User does not exist", Toast.LENGTH_SHORT).show();
+
             Log.e("InfoAsyncTask", "Error reading school information", e);
         }
         return userData;
@@ -58,6 +65,8 @@ public class UserDAO {
 
             resultSet = statement.executeUpdate();
         } catch (Exception e) {
+            Toast.makeText(this.context, "Cannot register", Toast.LENGTH_SHORT).show();
+
             Log.e("InfoAsyncTask", "Error reading school information", e);
         }
     }

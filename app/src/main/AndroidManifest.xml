@@ -20,7 +20,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:requestLegacyExternalStorage="true"
 
-        android:hardwareAccelerated="false"
+        android:hardwareAccelerated="true"
         android:largeHeap="true">
 
         <activity
@@ -46,6 +46,24 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.GALLERY" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PublicPostsActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PUBLICPOSTS" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AdminActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ADMIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

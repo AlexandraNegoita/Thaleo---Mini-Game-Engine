@@ -79,14 +79,14 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAddShape"
                 style="@android:style/Widget.Button.Small"
-                android:layout_width="99dp"
+                android:layout_width="103dp"
                 android:layout_height="match_parent"
                 android:backgroundTint="#6200ED"
                 android:contentDescription="hhh"
                 android:paddingLeft="30dp"
                 android:textColor="#FEFEFE"
                 android:textSize="20sp"
-                android:translationX="20dp"
+                android:translationX="10dp"
                 app:icon="@drawable/baseline_add_box_24"
                 app:iconSize="35dp" />
 
@@ -142,6 +142,7 @@
             app:itemPaddingBottom="0dp"
             app:itemPaddingTop="0dp">
 
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSave"
                 style="@android:style/Widget.Button.Small"
@@ -152,13 +153,13 @@
                 android:paddingLeft="30dp"
                 android:textColor="#FEFEFE"
                 android:textSize="20sp"
-                android:translationX="200dp"
+                android:translationX="10dp"
                 app:icon="@drawable/baseline_save_24"
                 app:iconSize="35dp" />
 
             <ImageView
                 android:id="@+id/imgPreview"
-                android:translationX="0dp"
+                android:translationX="100dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:src="@tools:sample/avatars" />

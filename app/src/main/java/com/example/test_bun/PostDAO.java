@@ -9,10 +9,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PostDAO {
-    private static final String URL = "jdbc:mysql://192.168.1.124:3309/thaleodb";
+    private static final String URL = "jdbc:mysql://192.168.30.135:3309/thaleodb";
     public static int count = 0;
     private static final String USER = "root";
     private static final String PASSWORD = "11111111";
@@ -44,7 +45,7 @@ public class PostDAO {
             int rs = statement.executeUpdate();
             count++;
         } catch (Exception e) {
-            Log.e("InfoAsyncTask", "Error reading school information", e);
+            Log.e("InfoAsyncTask", "Error reading post information", e);
         }
     }
     public ArrayList<Post> getPosts(int userID){
@@ -53,13 +54,14 @@ public class PostDAO {
         posts = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
 
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM posts WHERE userID='" + userID + "'");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM postsByUser WHERE userID='" + userID + "'");
 
             resultSet = statement.executeQuery();
             while(resultSet.next()) {
                 post = new Post(
                         Integer.parseInt(resultSet.getString("postID")),
                         Integer.parseInt(resultSet.getString("userID")),
+                        resultSet.getString("username"),
                         resultSet.getString("fileName"),
                         resultSet.getBinaryStream("file"),
                         resultSet.getString("visibility")
@@ -68,9 +70,85 @@ public class PostDAO {
                 //profilePicture.setImageFull(StringToBitMap(resultSet.getBinaryStream("image")));
             }
         } catch (Exception e) {
-            Log.e("InfoAsyncTask", "Error reading school information", e);
+            Log.e("InfoAsyncTask", "Error reading post information", e);
         }
         return posts;
+    }
+
+    public ArrayList<Post> getPublicPosts(int userID){
+        ResultSet resultSet = null;
+        post = null;
+        posts = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM postsByUser WHERE userID='" + userID + "' AND visibility='public'");
+
+            resultSet = statement.executeQuery();
+            while(resultSet.next()) {
+                post = new Post(
+                        Integer.parseInt(resultSet.getString("postID")),
+                        Integer.parseInt(resultSet.getString("userID")),
+                        resultSet.getString("username"),
+                        resultSet.getString("fileName"),
+                        resultSet.getBinaryStream("file"),
+                        resultSet.getString("visibility")
+                );
+                posts.add(post);
+                //profilePicture.setImageFull(StringToBitMap(resultSet.getBinaryStream("image")));
+            }
+        } catch (Exception e) {
+            Log.e("InfoAsyncTask", "Error reading post information", e);
+        }
+        return posts;
+    }
+    public ArrayList<Post> getAllPublicPosts(){
+        ResultSet resultSet = null;
+        post = null;
+        posts = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM postsByUser WHERE visibility='public'");
+
+            resultSet = statement.executeQuery();
+            while(resultSet.next()) {
+                post = new Post(
+                        Integer.parseInt(resultSet.getString("postID")),
+                        Integer.parseInt(resultSet.getString("userID")),
+                        resultSet.getString("username"),
+                        resultSet.getString("fileName"),
+                        resultSet.getBinaryStream("file"),
+                        resultSet.getString("visibility")
+                );
+                posts.add(post);
+                //profilePicture.setImageFull(StringToBitMap(resultSet.getBinaryStream("image")));
+            }
+        } catch (Exception e) {
+            Log.e("InfoAsyncTask", "Error reading post information", e);
+        }
+        return posts;
+    }
+    public void publicPost(int postID){
+        int resultSet;
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+
+            PreparedStatement statement = connection.prepareStatement("UPDATE posts SET visibility='public' WHERE postID='" + postID + "'");
+
+            resultSet = statement.executeUpdate();
+        } catch (Exception e) {
+            Log.e("InfoAsyncTask", "Error updating post information", e);
+        }
+    }
+
+    public void privatePost(int postID){
+        int resultSet;
+        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
+
+            PreparedStatement statement = connection.prepareStatement("UPDATE posts SET visibility='private' WHERE postID='" + postID + "'");
+
+            resultSet = statement.executeUpdate();
+        } catch (Exception e) {
+            Log.e("InfoAsyncTask", "Error updating post information", e);
+        }
     }
 
 }

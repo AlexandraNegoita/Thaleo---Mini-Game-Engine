@@ -3,17 +3,16 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:padding="10dp"
     android:fillViewport="true"
     android:background="@color/lavender">
-
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/galleryContainer"
     android:orientation="vertical"
 
     >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -31,22 +30,10 @@
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:translationX="20dp"></TextView>
-        <Button
-            android:id="@+id/btnPostPublic"
-            android:layout_width="match_parent"
-            android:layout_height="67dp"
-            android:text="Post Project"
-            android:textSize="20sp"
-            android:visibility="gone" />
+
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/viewImage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"></ImageView>
 
 
 </LinearLayout>
-
 </ScrollView>

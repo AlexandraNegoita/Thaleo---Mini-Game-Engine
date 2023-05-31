@@ -1,5 +1,10 @@
 package com.example.test_bun;
 
+import static android.opengl.GLES20.GL_DEPTH_TEST;
+import static android.opengl.GLES20.GL_LESS;
+import static android.opengl.GLES20.glDepthFunc;
+import static android.opengl.GLES20.glEnable;
+
 import android.opengl.GLES20;
 import android.opengl.GLES30;
 
@@ -105,6 +110,10 @@ public class Cube extends Model{
     public void draw(float[] mvpMatrix) {
         // Adding program to OpenGL ES environment
         GLES30.glUseProgram(program);
+        // Enable depth test
+        glEnable(GL_DEPTH_TEST);
+// Accept fragment if it closer to the camera than the former one
+        glDepthFunc(GL_LESS);
         // get handle to vertex shader's vPosition member
         positionHandle = GLES20.glGetAttribLocation(program, "vPosition");
         // Enable a handle to the triangle vertices

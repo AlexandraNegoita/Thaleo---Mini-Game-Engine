@@ -7,6 +7,16 @@ import java.io.InputStream;
 public class Post {
     int postID;
     int userID;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    String username;
     String fileName;
     InputStream file;
 
@@ -21,9 +31,10 @@ public class Post {
     Bitmap fileFull;
     String visibility;
 
-    public Post(int postID, int userID, String fileName, InputStream file, String visibility) {
+    public Post(int postID, int userID, String username, String fileName, InputStream file, String visibility) {
         this.postID = postID;
         this.userID = userID;
+        this.username = username;
         this.fileName = fileName;
         this.file = file;
         this.visibility = visibility;

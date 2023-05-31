@@ -1,5 +1,13 @@
 package com.example.test_bun;
 
+import static android.opengl.GLES20.GL_COLOR_BUFFER_BIT;
+import static android.opengl.GLES20.GL_DEPTH_BUFFER_BIT;
+import static android.opengl.GLES20.GL_DEPTH_TEST;
+import static android.opengl.GLES20.GL_LESS;
+import static android.opengl.GLES20.glClear;
+import static android.opengl.GLES20.glDepthFunc;
+import static android.opengl.GLES20.glEnable;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -30,7 +38,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         this.selected = selected;
     }
 
-    private String selected = "pyramid";
+    private String selected = "triangle";
 
 
     float width;
@@ -91,13 +99,26 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
         // Set the background frame color
         //GLES20.glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
-       mTriangle = new Triangle();
+        GLES30.glEnable( GLES30.GL_DEPTH_TEST );
+        GLES30.glDepthFunc( GLES30.GL_LEQUAL );
+        GLES30.glDepthMask( true );
+        GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT | GLES30.GL_DEPTH_BUFFER_BIT);
+        GLES30.glDepthMask(true);
+        mTriangle = new Triangle();
        //mCube = new Square();
         mCube = new Cube();
         mPyramid = new Pyramid();
+//        glEnable(GL_DEPTH_TEST);
+//// Accept fragment if it closer to the camera than the former one
+//        glDepthFunc(GL_LESS);
+
     }
 
     public void onDrawFrame(GL10 unused) {
+        GLES30.glEnable( GLES30.GL_DEPTH_TEST );
+        GLES30.glDepthFunc( GLES30.GL_LEQUAL );
+        GLES30.glDepthMask( true );
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         if(this.selected == "pyramid") {
             mModel = mPyramid;
         } else if(this.selected == "cube") {
@@ -106,7 +127,10 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
             mModel = mTriangle;
         }
         // Redraw background color
-        GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT);
+        // Clear the screen
+
+
+
 //        mTriangle.draw();
         float[] scratch = new float[16];
         // Create a rotation transformation for the triangle
@@ -156,7 +180,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         int screenshotSize = width * height;
         ByteBuffer bb = ByteBuffer.allocateDirect(screenshotSize * 4);
         bb.order(ByteOrder.nativeOrder());
-        GLES30.glReadPixels(5, 0, width, height, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, bb);
+        GLES30.glReadPixels(0, 0, width, height, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, bb);
         int pixelsBuffer[] = new int[screenshotSize];
         bb.asIntBuffer().get(pixelsBuffer);
         bb = null;

@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
-    UserDAO userConn = UserDAO.getInstance();
+    UserDAO userConn = UserDAO.getInstance(this);
     TextInputEditText usernameInput;
     TextInputEditText passwordInput;
     String usernameText;

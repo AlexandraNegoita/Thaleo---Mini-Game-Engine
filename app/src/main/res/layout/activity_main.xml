@@ -16,11 +16,21 @@
             android:id="@+id/button"
             android:layout_width="373dp"
             android:layout_height="73dp"
-            android:rotationX="4"
+            android:rotationX="0"
             android:rotationY="0"
             android:text="Go To My Gallery"
             android:translationX="10dp"
             android:translationY="500dp" />
+        <Button
+            android:id="@+id/btnAdmin"
+            android:layout_width="373dp"
+            android:layout_height="73dp"
+            android:rotationX="0"
+            android:rotationY="0"
+            android:text="Go To Admin Settings"
+            android:translationX="10dp"
+            android:translationY="565dp"
+            android:visibility="gone"/>
 
 
     </FrameLayout>

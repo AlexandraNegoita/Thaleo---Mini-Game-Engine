@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/lavender"
     tools:context=".WelcomePageFragment"
-    android:id="@id/gallery">
+    android:id="@id/welcome">
     <!-- TODO: Update blank fragment layout
     PAGINA DE GALLERY -->
 
@@ -14,7 +14,7 @@
         android:id="@+id/imageView"
         android:layout_width="1346dp"
         android:layout_height="1088dp"
-        android:src="@drawable/test"
+        android:src="@drawable/background"
         android:translationX="-450dp"
         android:translationY="-100dp" />
 

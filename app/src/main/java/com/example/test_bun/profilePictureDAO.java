@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class profilePictureDAO {
-    private static final String URL = "jdbc:mysql://192.168.1.124:3309/thaleodb";
+    private static final String URL = "jdbc:mysql://192.168.30.135:3309/thaleodb";
     private static final String USER = "root";
     private static final String PASSWORD = "11111111";
     private static profilePictureDAO instance;
@@ -59,7 +59,7 @@ public class profilePictureDAO {
                 //profilePicture.setImageFull(StringToBitMap(resultSet.getBinaryStream("image")));
             }
         } catch (Exception e) {
-            Log.e("InfoAsyncTask", "Error reading school information", e);
+            Log.e("Error reading profile information", String.valueOf(e));
         }
         return profilePicture;
     }

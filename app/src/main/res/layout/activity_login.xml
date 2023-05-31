@@ -8,6 +8,13 @@
     >
     <!-- TODO: Update blank fragment layout
     PAGINA DE MY PROFILE -->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="1346dp"
+        android:layout_height="1088dp"
+        android:src="@drawable/background"
+        android:translationX="-450dp"
+        android:translationY="-100dp" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
